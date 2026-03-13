@@ -1,4 +1,4 @@
-version: "3.9"                # or whichever version you prefer
+
 
 networks:
   pg-network:
@@ -36,6 +36,29 @@ services:
       - "8085:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+
+  data-loader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: taxi_ingest:v001  # Use your existing image name
+    networks:
+      - pg-network
+    depends_on:
+      - pgdatabase
+    # These become the "default" arguments if you just run 'up'
+    # entrypoint: ["/code/.venv/bin/python"] 
+    # volumes:
+    #   - .:/code 
+    #   - /code/.venv
+    # command:
+    #   - "--pg-user=root"
+    #   - "--pg-pass=root"
+    #   - "--pg-host=pgdatabase"
+    #   - "--pg-port=5432"
+    #   - "--pg-database=ny_taxi"
+    #   - "--chunksize=10000"
+    #   - "--target-table=yellow_taxi_trips_2021_1"
 
 # services:
 #   pgdatabase:
