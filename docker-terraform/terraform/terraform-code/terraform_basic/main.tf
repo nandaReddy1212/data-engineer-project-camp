@@ -8,24 +8,24 @@ terraform {
 }
 
 provider "google" {
-# Credentials only needs to be set if you do not have the GOOGLE_APPLICATION_CREDENTIALS set
-#  credentials = 
-  project = "vertexai-489303"
-  region  = "us-central1"
+  # Credentials only needs to be set if you do not have the GOOGLE_APPLICATION_CREDENTIALS set
+  #  credentials = 
+  project = var.project_id
+  region  = var.region
 }
 
 
 
 resource "google_storage_bucket" "data-lake-bucket" {
-  name          = "terraform-based-bucket"
-  location      = "US"
+  name     = var.gcs_bucket_name
+  location = var.location
 
   # Optional, but recommended settings:
-  storage_class = "STANDARD"
+  storage_class               = "STANDARD"
   uniform_bucket_level_access = true
 
   versioning {
-    enabled     = true
+    enabled = true
   }
 
   lifecycle_rule {
@@ -33,7 +33,7 @@ resource "google_storage_bucket" "data-lake-bucket" {
       type = "Delete"
     }
     condition {
-      age = 30  // days
+      age = 30 // days
     }
   }
 
@@ -42,7 +42,7 @@ resource "google_storage_bucket" "data-lake-bucket" {
 
 
 resource "google_bigquery_dataset" "dataset" {
-  dataset_id = "ride_company_dataset"
-  project = "vertexai-489303"
-  location   = "US"
+  dataset_id = var.bq_dataset_name
+  project    = var.project_id
+  location   = var.location
 }
