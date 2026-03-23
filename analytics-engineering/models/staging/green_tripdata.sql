@@ -1,1 +1,1 @@
-select * from {{ ref('raw_data', 'green_tripdata') }}
+select * from {{ source('raw_data', 'green_tripdata') }}
