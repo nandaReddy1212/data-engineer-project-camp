@@ -1,0 +1,11 @@
+version: 2
+sources:
+  - name: raw_data
+    description: "Source data for NYC taxi rides."
+    database: vertexai-489303
+    schema: newyork_ride_database
+    tables:
+      - name: green_tripdata
+        description: "Raw user data from the source system for green taxis."
+      - name: yellow_tripdata
+        description: "Raw user data from the source system for yellow taxis." 
