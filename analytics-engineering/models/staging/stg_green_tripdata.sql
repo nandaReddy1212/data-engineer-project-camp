@@ -1,5 +1,5 @@
  with source as (
-    select * from {{ source('raw', 'yellow_tripdata') }}
+    select * from {{ source('raw', 'green_tripdata') }}
 ),
 
 renamed as (
@@ -28,7 +28,7 @@ select  cast(vendorid as integer) as vendor_id,
         cast(improvement_surcharge as numeric) as improvement_surcharge,
         cast(total_amount as numeric) as total_amount,
         {{ safe_cast('payment_type', 'integer') }} as payment_type
- from {{ source('raw_data', 'green_tripdata') }}
+ from source
  WHERE vendorid is not null
  )
 
