@@ -9,7 +9,12 @@
  -  They are reusable logic mostly SQL.  ex: datatime conversion 
 
 ## models
-    - 
+    - In dbt, models are simply SQL .sql files that define how your data should be transformed. Each model is a single SELECT statement that dbt wraps in DDL (like CREATE VIEW or CREATE TABLE) to build it in your data warehouse. 
+    
+    # - data moves in three layers through staging to intermediate and marts 
+        staging will have sources about connection to raw data
+        schema.yml : Used for Testing. This is where we define not_null, unique, and accepted_values tests for our columns.
+
 ## seeds
     - A place to upload csv and flat files for testing of data before loading into data warehouse.
 
