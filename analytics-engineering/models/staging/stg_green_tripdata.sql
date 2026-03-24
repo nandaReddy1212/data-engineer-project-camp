@@ -1,3 +1,8 @@
+ with source as (
+    select * from {{ source('raw', 'yellow_tripdata') }}
+),
+
+renamed as (
 select  cast(vendorid as integer) as vendor_id,
         {{ safe_cast('ratecodeid', 'integer') }} as rate_code_id,
         cast(pulocationid as integer) as pickup_location_id,
@@ -25,3 +30,6 @@ select  cast(vendorid as integer) as vendor_id,
         {{ safe_cast('payment_type', 'integer') }} as payment_type
  from {{ source('raw_data', 'green_tripdata') }}
  WHERE vendorid is not null
+ )
+
+ select * from renamed
